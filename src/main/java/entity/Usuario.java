@@ -1,15 +1,32 @@
 package entity;
 
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Entity
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
 public class Usuario {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(nullable = false)
     private String username;
+
+    @Column(nullable = false)
     private String password;
+
+    @Column(nullable = false)
     private Boolean enabled;
+
     @ManyToOne
+    @Enumerated(EnumType.STRING)
     private Rol rol;
+
     @OneToOne
     private Empleado empleado;
 }

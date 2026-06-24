@@ -1,7 +1,9 @@
 package entity;
 
+import jakarta.persistence.MappedSuperclass;
 import java.time.LocalDateTime;
 
+@MappedSuperclass
 public class Auditoria {
 
         private LocalDateTime createdAt;
@@ -11,5 +13,6 @@ public class Auditoria {
         private String createdBy;
 
         private String updatedBy;
+
     }
 
