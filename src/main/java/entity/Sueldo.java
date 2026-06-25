@@ -35,6 +35,6 @@ public class Sueldo {
     @ManyToOne
     private Empleado empleado;
 
-    @OneToMany(mappedBy = "sueldo")
+    @OneToMany(mappedBy = "nomina")
     private List<DetalleSueldo> detalles;
 }

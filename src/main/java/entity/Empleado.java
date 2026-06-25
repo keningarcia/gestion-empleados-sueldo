@@ -3,6 +3,7 @@ package entity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
@@ -13,6 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+@EqualsAndHashCode(callSuper = false)
 public class Empleado extends Auditoria{
 
     @Id
@@ -49,7 +51,10 @@ public class Empleado extends Auditoria{
     @ManyToOne
     private Area area;
 
-    @OneToOne
+    @ManyToOne
+    private Cargo cargo;
+
+    @OneToOne(mappedBy = "empleado")
     private Usuario usuario;
 
     @OneToMany(mappedBy = "empleado")
