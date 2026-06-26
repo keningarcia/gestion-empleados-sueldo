@@ -6,6 +6,7 @@ import entity.Rol;
 import entity.Usuario;
 import exception.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import repository.EmpleadoRepository;
@@ -20,13 +21,14 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     private final UsuarioRepository usuarioRepository;
     private final EmpleadoRepository empleadoRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     @Transactional
     public UsuarioDTO create(UsuarioDTO dto) {
         Usuario usuario = new Usuario();
         usuario.setUsername(dto.getUsername());
-        usuario.setPassword(dto.getPassword());
+        usuario.setPassword(passwordEncoder.encode(dto.getPassword()));
         usuario.setEnabled(dto.getEnabled());
         usuario.setRol(Rol.valueOf(dto.getRol().toUpperCase()));
 
@@ -47,7 +49,7 @@ public class UsuarioServiceImpl implements UsuarioService {
                 .orElseThrow(() -> new ResourceNotFoundException("Usuario not found with id: " + id));
 
         usuario.setUsername(dto.getUsername());
-        usuario.setPassword(dto.getPassword());
+        usuario.setPassword(passwordEncoder.encode(dto.getPassword()));
         usuario.setEnabled(dto.getEnabled());
         usuario.setRol(Rol.valueOf(dto.getRol().toUpperCase()));
 
